@@ -8,6 +8,22 @@
     font-style: normal;
 }
 
+/* Customizing the Scrollbar */
+::-webkit-scrollbar {
+    width: 8px; /* Adjust the width of the scrollbar */
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #ffffff; /* Green color, similar to the button color */
+    border-radius: 10px; /* Rounded corners */
+    border: 2px solid #333; /* Border around the thumb for a defined look */
+}
+
+::-webkit-scrollbar-track {
+    background-color: #333; /* Dark background for the track */
+    border-radius: 10px; /* Rounded corners for the track */
+}
+
 body{
     background-color: black;
     color: white;
@@ -15,7 +31,7 @@ body{
 
 .left{
     width: 25vw;
-    height: 100vh;
+    height: 100%;
     padding: 10px;
     position: fixed;
     left: 0;
@@ -27,11 +43,9 @@ body{
 
 .right{
     width: 75vw;
-    height: 100vh;
     margin: 15px 15px 15px 25vw;
     padding: 10px;
     border-radius: 7px;
-    position: relative;
 }
 
 .logo {
@@ -101,6 +115,7 @@ body{
     justify-content: center;
     padding: 20px;
     position: relative;
+    border-radius: 15px;
 }
 .artist-card > *{
     width: 100%;
@@ -124,7 +139,7 @@ body{
     align-items: center;
     flex-wrap: wrap;
     overflow-y: scroll;
-    max-height: 32vh;
+    max-height: 35vh;
     scrollbar-width: none;
     margin: 10px;
 }
@@ -135,6 +150,7 @@ body{
     justify-content: center;
     padding: 20px;
     position: relative;
+    border-radius: 15px;
 }
 .playlist-card > *{
     width: 100%;
@@ -173,13 +189,15 @@ body{
 }
 .playbar {
     bottom: 0;
-    position: absolute;
+    position: fixed;
     background-color: #1f1f1f;
-    padding: 10px;
-    width: 96%;
-    border-radius: 7px;
+    padding-left: 15px;
+    height: 75px;
+    width: 73vw;
     display: flex;
     justify-content: center;
+    border-radius: 30px 30px 0px 0px;
+    flex-wrap: wrap;
 }
 
 .songbuttons button {
@@ -193,15 +211,52 @@ body{
     padding: 12px;
     max-height: 40vh;
     overflow-y: scroll;
-    scrollbar-width: none;
+    /* scrollbar-width: none; */
 }
 .songlist ul li {
-    list-style-type: decimal;
+    list-style: none;
     width: 80%;
     padding: 7px 0px 7px 8px;
     margin: 0 24px
 }
 .songlist ul li button{
     background-color: #1ed760;
-    height: 10vh;
+    height: 10%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border-radius: 15px;
+    font-size: 16px;
+
+}
+.songlist ul li button img {
+    height: 30px;
+    width: 30px;
+}
+.dummy-div{
+    height: 100px;
+}
+.hovered{
+    background-color: #656866;
+    transition: all 1s ease-out;
+}
+.seekbar {
+    height: 3px;
+    width: 70vw;
+    background-color: white;
+    border-radius: 10px;
+    position: relative;
+}
+
+.circle{
+    height: 20px;
+    width: 20px;
+    background-color: white;
+    border-radius: 50%;
+    position: absolute;
+    top: -9px;
+    left: 0%;
+    transition: left 1s;
 }

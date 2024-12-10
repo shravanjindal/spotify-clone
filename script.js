@@ -21,27 +21,93 @@ async function getSongs() {
     return songinfo
 }
 
+async function addevents () {
+    let cards1 = document.querySelectorAll(".artist-card")
+    let cards2 = document.querySelectorAll(".playlist-card")
+    for (const card of cards1) {
+        // Add event listeners for mouseover and mouseout
+        card.addEventListener('mouseover', () => {
+            const playButton = card.querySelector('.play');
+            playButton.style.opacity = '1'
+            card.classList.add("hovered")
+        });
+        card.addEventListener('mouseout', () => {
+            const playButton = card.querySelector('.play');
+            playButton.style.opacity = '0'
+            card.classList.remove("hovered")
+        });
+    }
+    for (const card of cards2) {
+        // Add event listeners for mouseover and mouseout
+        card.addEventListener('mouseover', () => {
+            const playButton = card.querySelector('.play');
+            playButton.style.opacity = '1'
+            card.classList.add("hovered")
+        });
+        card.addEventListener('mouseout', () => {
+            const playButton = card.querySelector('.play');
+            playButton.style.opacity = '0'
+            card.classList.remove("hovered")
+        });
+    }
+}
+
 
 async function main () {
     let songinfo = await getSongs();
+    addevents()
     let songUL = document.querySelector(".songlist").getElementsByTagName("ul")[0]
     let audios = []
+    let buttons = []
     let songbuttons = document.querySelector(".songbuttons").getElementsByTagName("button")
     let last_played;
-    let last_played2;
-    songbuttons[1].onclick = () => {
+    let playbtn = songbuttons[1]
+
+    
+    // Add an event listener for beforeunload
+    window.addEventListener('beforeunload', () => {
         last_played = audios.pop()
-        if(last_played)
+        if(!last_played.paused)
             last_played.pause()
-        else {
-            last_played2.play()
-            audios.push(last_played2)
+    });
+    songbuttons[1].onclick = () => {
+        last_played = audios[audios.length-1]
+        let button = buttons[buttons.length-1]
+        if(!last_played.paused){
+            last_played.pause()
+            button.innerHTML = `<img src="music.svg"><p>${button.childNodes[1].innerText}</p><img src="play2.svg"></img>`
+            playbtn.childNodes[0].src = "play2.svg"
+        }
+        else{
+            last_played.play()
+            button.innerHTML = `<img src="music.svg"><p>${button.childNodes[1].innerText}</p><img src="play.svg"></img>`
+            playbtn.childNodes[0].src = "play.svg"
         }
     }
     songbuttons[0].onclick = () => {
+        last_played = audios[audios.length-1]
+        if(last_played){
+            last_played.currentTime = 0
+            buttons[buttons.length-1].innerHTML = `<img src="music.svg"><p>${buttons[buttons.length-1].childNodes[1].innerText}</p><img src="play.svg"></img>`
+            last_played.play()
+            playbtn.childNodes[0].src = "play.svg"
+        }
+    }
+    songbuttons[0].ondblclick = () => {
+        last_played = audios[audios.length-1]
+        let last_played2 = audios[audios.length-2]
+        let button1 = buttons[buttons.length-1]
+        let button2 = buttons[buttons.length-2]
+        
         if(last_played2){
+            last_played.pause()
+            button1.innerHTML = `<img src="music.svg"><p>${button1.childNodes[1].innerText}</p><img src="play2.svg"></img>`
+            button2.innerHTML = `<img src="music.svg"><p>${button2.childNodes[1].innerText}</p><img src="play.svg"></img>`
+            audios.push(last_played2)
+            buttons.push(button2)
             last_played2.currentTime = 0
             last_played2.play()
+            playbtn.childNodes[0].src = "play.svg"
         }
     }
     let i=-1;
@@ -49,19 +115,23 @@ async function main () {
         let li = document.createElement("li")
         let button = document.createElement("button")
         i++;
-        button.innerText = song.replace(".ogg", "")
+        button.innerHTML = `<img src="music.svg"><p>${song.replace(".ogg", "")}</p><img src="play2.svg"></img>`
         button.dataset.url = songinfo.songs[i]
-        button.style.width = "100%"
+
         button.onclick = () => {
-            last_played = audios.pop()
+            last_played = audios[audios.length - 1]
             if (last_played){
+                let button = buttons[buttons.length - 1]
+                button.innerHTML = `<img src="music.svg"><p>${button.childNodes[1].innerText}</p><img src="play2.svg"></img>`
                 last_played.pause()
+                playbtn.childNodes[0].src = "play2.svg"
             }
-            
+            button.innerHTML = `<img src="music.svg"><p>${button.childNodes[1].innerText}</p><img src="play.svg"></img>`
             let audio = new Audio(button.dataset.url)
             audios.push(audio)
+            buttons.push(button)
             audio.play()
-            last_played2 = audio;
+            playbtn.childNodes[0].src = "play.svg"
         }
         li.appendChild(button)
         songUL.appendChild(li)
