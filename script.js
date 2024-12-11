@@ -217,9 +217,10 @@ async function addevents() {
                 leftElement.style.left = "0%";
             }
         }
-        else
-            leftElement.style.left = "-100%";
-
+        else{
+            if(!open)
+                leftElement.style.left = "-100%";
+        }
     });
     document.querySelector(".left-hamburger").addEventListener ('click', () => {
         if(open){
@@ -258,7 +259,7 @@ async function addevents() {
                 newElements.pop()
             }
             main(songinfo);
-            if (document.style.offsetWidth < 1450){
+            if (document.documentElement.offsetWidth < 1450){
                 open = true
                 document.querySelector(".left").style.left = "0%";
                 document.querySelector(".right").style.opacity = "10%"
@@ -287,7 +288,7 @@ async function addevents() {
                 newElements.pop()
             }
             main(songinfo);
-            if (document.style.offsetWidth < 1450){
+            if (document.documentElement.offsetWidth < 1450){
                 open = true
                 document.querySelector(".left").style.left = "0%";
                 document.querySelector(".right").style.opacity = "10%"
