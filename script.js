@@ -106,23 +106,6 @@ async function playbarController() {
         audio.play();
         playbtn.childNodes[0].src = "play.svg";
     });
-    
-// songbuttons[0].onclick = () => {
-//     if (clickTimer) clearTimeout(clickTimer); // Clear any previous single click timer
-//     clickTimer = setTimeout(() => {
-//         clickTimer = null; // Reset the timer
-//         // Single-click logic
-        
-//     }, 300); // Delay to differentiate single and double-clicks
-// };
-
-// songbuttons[0].ondblclick = () => {
-//     if (clickTimer) clearTimeout(clickTimer); // Cancel single-click action
-//     clickTimer = null; // Reset the timer
-//     // Double-click logic
-    
-// };
-
 
     songbuttons[2].onclick = () => {
         let currBtn = buttons[buttons.length-1]
@@ -208,6 +191,9 @@ async function addevents() {
             for (const li of newElements) {
                 li.remove();
             }
+            while (newElements.length != 0) {
+                newElements.pop()
+            }
             main(songinfo);
         })
     }
@@ -229,11 +215,17 @@ async function addevents() {
             for (const li of newElements) {
                 li.remove();
             }
+            while (newElements.length != 0) {
+                newElements.pop()
+            }
             main(songinfo);
         })
     }
 }
 
+setInterval(()=>{
+    console.log(newElements.length)
+},500)
 
 addevents()
 playbarController()
