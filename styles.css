@@ -192,7 +192,7 @@ body{
     position: fixed;
     background-color: #1f1f1f;
     /* padding-left: 15px; */
-    height: 75px;
+    height: 10vh;
     width: 73vw;
     display: flex;
     justify-content: center;
@@ -255,7 +255,7 @@ body{
     width: 30px;
 }
 .dummy-div{
-    height: 100px;
+    height: 25vh;
 }
 .hovered{
     background-color: #656866;
@@ -281,6 +281,8 @@ body{
 .playbar-below {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
 }
 .hamburger{
     display: none;
@@ -289,17 +291,21 @@ body{
 @media (max-width : 1450px) {
     .left{
         position: absolute;
-        width: 370px;
-        left: -100%;
-        z-index: 2;
-        transition: left 0.5s ease-in-out;
+        left: -130%;
+        transition: all .3s;
+        z-index: 1;
+        width: 373px;
+        padding: 0;
+        height: 100vh;
+        position: fixed;
+        top: 0;
     }
     .right{
         width: 100%;
         margin: 0px;
     }
     .playbar{
-        width: 97%;
+        width: 97vw;
         position: fixed;
         left: 14px;
     }
@@ -311,19 +317,43 @@ body{
     }
 }
 
-@media (max-width : 420px) {
+@media (max-width : 500px) {
+    .playbar{
+        height: 20vh;
+    }
+    .playbar-below > *{
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+    .playbar-below{
+        justify-content: center;
+    }
+    .spotify-playlists{
+        overflow-y: none;
+        max-height: none;
+        scrollbar-width: none;
+    }
     .artist-card{
-        width: 40vw;
-        padding: 20px 1vw;
+        width: 80vw;
+        padding: 20px 2vw;
     }
     .playlist-card{
-        width: 40vw;
-        padding: 20px 1vw;
+        width: 80vw;
+        padding: 20px 2vw;
     }
     .spotify-playlists{
         justify-content: center;
     }
     .popular-artists{
         justify-content: center;
+    }
+    .playlist-card .a-img{
+        height: 80vw;
+        width: 100%;
+    }
+    .artist-card .a-img{
+        height: 55vw;
+        width: 55vw;
     }
 }
