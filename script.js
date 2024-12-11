@@ -196,6 +196,31 @@ async function main(songinfo) {
 async function addevents() {
     let cards1 = document.querySelectorAll(".artist-card")
     let cards2 = document.querySelectorAll(".playlist-card")
+    let open = false
+    document.querySelector(".hamburger").addEventListener ('click', () => {
+        if (!open){
+            open = true
+            document.querySelector(".left").style.left = "0%";
+            document.querySelector(".right").style.opacity = "10%"
+        }
+        else{
+            open = false
+            document.querySelector(".left").style.left = "-30%";
+            document.querySelector(".right").style.opacity = "1"
+        }
+    });
+    document.querySelector(".left-hamburger").addEventListener ('click', () => {
+        document.querySelector(".left").style.left = "-100%";
+        document.querySelector(".right").style.opacity = "1"
+    });
+    document.addEventListener("click", (e) => {
+        if (open)
+            if(e.offsetX > 373){
+                open = false
+                document.querySelector(".left").style.left = "-100%";
+                document.querySelector(".right").style.opacity = "1"
+            }
+    })
     for (const card of cards1) {
         // Add event listeners for mouseover and mouseout
         card.addEventListener('mouseover', () => {
@@ -219,6 +244,9 @@ async function addevents() {
                 newElements.pop()
             }
             main(songinfo);
+            open = true
+            document.querySelector(".left").style.left = "0%";
+            document.querySelector(".right").style.opacity = "10%"
         })
     }
     for (const card of cards2) {
@@ -243,6 +271,9 @@ async function addevents() {
                 newElements.pop()
             }
             main(songinfo);
+            open = true
+            document.querySelector(".left").style.left = "0%";
+            document.querySelector(".right").style.opacity = "10%"
         })
     }
 }

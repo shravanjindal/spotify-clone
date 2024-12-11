@@ -34,8 +34,6 @@ body{
     height: 100%;
     padding: 10px;
     position: fixed;
-    left: 0;
-    top: 0;
     overflow-y: auto;
     box-sizing: border-box; 
     scrollbar-width: none;
@@ -192,30 +190,30 @@ body{
     bottom: 0;
     position: fixed;
     background-color: #1f1f1f;
-    padding-left: 15px;
+    /* padding-left: 15px; */
     height: 75px;
     width: 73vw;
     display: flex;
-    /* justify-content: center; */
+    justify-content: center;
     border-radius: 30px 30px 0px 0px;
     flex-wrap: wrap;
 }
-.playbar > *{
-    width: 70vw;
+.playbar > * {
+    width: 97%;
 }
 .songbuttons{
     display: flex;
     justify-content: center;
-    padding-left: 96px;
 }
 .songbuttons button {
     background-color: #1ed760;
     border-radius: 50%;
     height: 50px;
     width: 50px;
+    cursor: pointer;
 }
 #repeat {
-    margin: 10px 0px 10px 56px;
+    margin: 10px 0px 10px 4vw;
     height: 30px;
     width: 30px;
     border: 2px solid #1ed760;
@@ -224,6 +222,7 @@ body{
 .songtime {
     display: flex;
     justify-content: end;
+    flex-wrap: wrap;
 }
 .songlist ul{
     padding: 12px;
@@ -247,6 +246,7 @@ body{
     padding: 10px;
     border-radius: 15px;
     font-size: 16px;
+    cursor: pointer;
 
 }
 .songlist ul li button img {
@@ -262,12 +262,11 @@ body{
 }
 .seekbar {
     height: 3px;
-    width: 70vw;
     background-color: white;
     border-radius: 10px;
     position: relative;
+    cursor: pointer;
 }
-
 .circle{
     height: 20px;
     width: 20px;
@@ -278,10 +277,52 @@ body{
     left: 0%;
     transition: left 0.5s;
 }
-.playbar-below{
+.playbar-below {
     display: flex;
     justify-content: space-between;
 }
-.playbar-below > * {
-    width: 30%;s
+.hamburger{
+    display: none;
+}
+
+@media (max-width : 1450px) {
+    .left{
+        position: absolute;
+        width: 370px;
+        left: -30%;
+        z-index: 2;
+        transition: left 0.5s ease-in-out;
+    }
+    .right{
+        width: 100%;
+        margin: 0px;
+    }
+    .playbar{
+        width: 97%;
+        position: fixed;
+        left: 14px;
+    }
+    .hamburger{
+        filter: invert(1);
+        display: block;
+        position: fixed;
+        right: 3vw;
+    }
+}
+
+@media (max-width : 420px) {
+    .artist-card{
+        width: 40vw;
+        padding: 20px 1vw;
+    }
+    .playlist-card{
+        width: 40vw;
+        padding: 20px 1vw;
+    }
+    .spotify-playlists{
+        justify-content: center;
+    }
+    .popular-artists{
+        justify-content: center;
+    }
 }
