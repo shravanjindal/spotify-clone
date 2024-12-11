@@ -205,13 +205,27 @@ async function addevents() {
         }
         else{
             open = false
-            document.querySelector(".left").style.left = "-30%";
+            document.querySelector(".left").style.left = "-100%";
             document.querySelector(".right").style.opacity = "1"
         }
     });
+    window.addEventListener("resize", () => {
+        const viewportWidth = document.documentElement.offsetWidth; // or window.innerWidth
+        const leftElement = document.querySelector(".left");
+        if (viewportWidth > 1450) {
+            if (leftElement) {
+                leftElement.style.left = "0%";
+            }
+        }
+        else
+            leftElement.style.left = "-100%";
+
+    });
     document.querySelector(".left-hamburger").addEventListener ('click', () => {
-        document.querySelector(".left").style.left = "-100%";
-        document.querySelector(".right").style.opacity = "1"
+        if(open){
+            document.querySelector(".left").style.left = "-100%";
+            document.querySelector(".right").style.opacity = "1"
+        }
     });
     document.addEventListener("click", (e) => {
         if (open)
@@ -244,9 +258,11 @@ async function addevents() {
                 newElements.pop()
             }
             main(songinfo);
-            open = true
-            document.querySelector(".left").style.left = "0%";
-            document.querySelector(".right").style.opacity = "10%"
+            if (document.style.offsetWidth < 1450){
+                open = true
+                document.querySelector(".left").style.left = "0%";
+                document.querySelector(".right").style.opacity = "10%"
+            }
         })
     }
     for (const card of cards2) {
@@ -271,9 +287,11 @@ async function addevents() {
                 newElements.pop()
             }
             main(songinfo);
-            open = true
-            document.querySelector(".left").style.left = "0%";
-            document.querySelector(".right").style.opacity = "10%"
+            if (document.style.offsetWidth < 1450){
+                open = true
+                document.querySelector(".left").style.left = "0%";
+                document.querySelector(".right").style.opacity = "10%"
+            }
         })
     }
 }
