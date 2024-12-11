@@ -8,6 +8,7 @@ let songUL = document.querySelector(".songlist").getElementsByTagName("ul")[0]
 let songbuttons = document.querySelector(".songbuttons").getElementsByTagName("button")
 let last_played;
 let playbtn = songbuttons[1]
+let repeatInfo = false
 
 // Function to format time (seconds) into mm:ss
 function formatTime(seconds) {
@@ -20,6 +21,12 @@ const timer = setInterval(() => {
         songtimes[0].innerText = formatTime(audios[audios.length - 1].currentTime)
         songtimes[1].innerText = formatTime(audios[audios.length - 1].duration)
         songinfo.innerText = buttons[buttons.length - 1].childNodes[1].innerText
+        if (audios[audios.length - 1].currentTime === audios[audios.length - 1].duration){
+            if (!repeatInfo)
+                playnext()
+            else
+                playfromStart()
+        }
     }
 }, 500)
 
@@ -78,12 +85,7 @@ async function playbarController() {
 
     songbuttons[0].addEventListener('click', () => {
         // Single-click logic
-        if (audios[audios.length - 1]) {
-            audios[audios.length - 1].currentTime = 0;
-            buttons[buttons.length - 1].innerHTML = `<img src="music.svg"><p>${buttons[buttons.length - 1].childNodes[1].innerText}</p><img src="play.svg"></img>`;
-            audios[audios.length - 1].play();
-            playbtn.childNodes[0].src = "play.svg";
-        }
+        playfromStart()
     });
     songbuttons[0].addEventListener('dblclick', () => {
         // Double-click logic
@@ -108,25 +110,47 @@ async function playbarController() {
     });
 
     songbuttons[2].onclick = () => {
-        let currBtn = buttons[buttons.length-1]
-        let element;
-        let next;
-        for (let i = 0; i  < newElements.length; i++) {
-            element = newElements[i];
-            if(element.childNodes[0] == currBtn){
-                next = (i+1)%newElements.length
-                break;
-            }
-        }
-        let audio = new Audio(newElements[next].childNodes[0].dataset.url)
-        audios[audios.length-1].pause()
-        buttons[buttons.length-1].childNodes[2].src = "play2.svg"
-        audios.push(audio)
-        buttons.push(newElements[next].childNodes[0])
-        buttons[buttons.length-1].childNodes[2].src = "play.svg"
-        audio.play()
-        playbtn.childNodes[0].src = "play.svg"
+        playnext()
     }
+    songbuttons[3].onclick = () => {
+        if(repeatInfo){
+            repeatInfo = false
+            songbuttons[3].style.border = "2px solid #1ed760"
+        }
+        else{
+            repeatInfo = true
+            songbuttons[3].style.border = "2px solid #ff0000"
+        }
+    }
+}
+function playfromStart() {
+    if (audios[audios.length - 1]) {
+        audios[audios.length - 1].currentTime = 0;
+        buttons[buttons.length - 1].innerHTML = `<img src="music.svg"><p>${buttons[buttons.length - 1].childNodes[1].innerText}</p><img src="play.svg"></img>`;
+        audios[audios.length - 1].play();
+        playbtn.childNodes[0].src = "play.svg";
+    }
+}
+
+function playnext (){
+    let currBtn = buttons[buttons.length-1]
+    let element;
+    let next;
+    for (let i = 0; i  < newElements.length; i++) {
+        element = newElements[i];
+        if(element.childNodes[0] == currBtn){
+            next = (i+1)%newElements.length
+            break;
+        }
+    }
+    let audio = new Audio(newElements[next].childNodes[0].dataset.url)
+    audios[audios.length-1].pause()
+    buttons[buttons.length-1].childNodes[2].src = "play2.svg"
+    audios.push(audio)
+    buttons.push(newElements[next].childNodes[0])
+    buttons[buttons.length-1].childNodes[2].src = "play.svg"
+    audio.play()
+    playbtn.childNodes[0].src = "play.svg"
 }
 
 async function main(songinfo) {
@@ -222,10 +246,6 @@ async function addevents() {
         })
     }
 }
-
-setInterval(()=>{
-    console.log(newElements.length)
-},500)
 
 addevents()
 playbarController()

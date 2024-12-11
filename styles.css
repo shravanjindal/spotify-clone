@@ -206,6 +206,7 @@ body{
 .songbuttons{
     display: flex;
     justify-content: center;
+    padding-left: 96px;
 }
 .songbuttons button {
     background-color: #1ed760;
@@ -213,6 +214,13 @@ body{
     height: 50px;
     width: 50px;
 }
+#repeat {
+    margin: 10px 0px 10px 56px;
+    height: 30px;
+    width: 30px;
+    border: 2px solid #1ed760;
+}
+
 .songtime {
     display: flex;
     justify-content: end;
@@ -275,5 +283,5 @@ body{
     justify-content: space-between;
 }
 .playbar-below > * {
-    width: 30%;
+    width: 30%;s
 }
