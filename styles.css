@@ -356,4 +356,7 @@ body{
         height: 55vw;
         width: 55vw;
     }
+    .play{
+        display: none;
+    }
 }
