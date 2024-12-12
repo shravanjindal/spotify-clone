@@ -1,5 +1,7 @@
 # This website is a responsive replication of Spotify Website.
 
-you can follow following url to view this app
+You can click following link to use the webpage.
 
-`$ https://minispotify1.freewebhostmost.com`
+[miniSpotify][1]
+
+[1]: https://minispotify1.freewebhostmost.com "miniSpotify"
